@@ -4,9 +4,9 @@ namespace GildedRose.Lib
 {
     public class QualityCalculator
     {
-        private readonly List<Item> _items;
+        private readonly IList<Item> _items;
 
-        public QualityCalculator(List<Item> items)
+        public QualityCalculator(IList<Item> items)
         {
             _items = items;
         }

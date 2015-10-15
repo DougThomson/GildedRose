@@ -5,7 +5,7 @@ namespace GildedRose.Console
 {
     class Program
     {
-        IList<Item> Items;
+        static IList<Item> Items;
         static void Main(string[] args)
         {
             System.Console.WriteLine("OMGHAI!");

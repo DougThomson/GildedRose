@@ -10,8 +10,8 @@
     <ProjectGuid>{CD4715A2-532E-4C74-BC40-36EE64F61FCA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GildedRose.Tests</RootNamespace>
-    <AssemblyName>GildedRose.Tests</AssemblyName>
+    <RootNamespace>GildedRose.OldXUnitTests</RootNamespace>
+    <AssemblyName>GildedRose.OldXUnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
