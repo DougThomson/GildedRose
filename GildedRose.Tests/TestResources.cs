@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using GildedRose.Lib;
 
 namespace GildedRose.Tests
@@ -30,5 +31,10 @@ namespace GildedRose.Tests
         internal static string DexterityVestName = "+5 Dexterity Vest";
         internal static string SulfurasName = "Sulfuras, Hand of Ragnaros";
         internal static string AgedBrieName = "Aged Brie";
+
+        internal static Item GetItem(string itemName, IList<Item> itemsList)
+        {
+            return itemsList.ToList().Find(n => n.Name.Equals(itemName));
+        }
     }
 }

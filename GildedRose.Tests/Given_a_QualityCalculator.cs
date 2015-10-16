@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using GildedRose.Lib;
 using GildedRose.Tests;
 using NUnit.Framework;
@@ -7,6 +6,7 @@ using NUnit.Framework;
 // ReSharper disable once CheckNamespace
 namespace Given_a_QualityCalculator
 {
+    [TestFixture]
     // ReSharper disable once InconsistentNaming
     public class WhenQuality_IsUpdated_51Times
     {
@@ -27,7 +27,7 @@ namespace Given_a_QualityCalculator
         [Test]
         public void ThenTheQualityOfSulfuras_IsStill_80()
         {
-            var sulfuras = GetItem(TestResources.SulfurasName);
+            var sulfuras = TestResources.GetItem(TestResources.SulfurasName, _standardItems);
             
 
             Assert.That(sulfuras.Quality, Is.EqualTo(80));
@@ -36,7 +36,7 @@ namespace Given_a_QualityCalculator
         [Test]
         public void ThenTheQuality_OfBrie_Is50()
         {
-            var brie = GetItem(TestResources.AgedBrieName);
+            var brie = TestResources.GetItem(TestResources.AgedBrieName, _standardItems);
 
             Assert.That(brie.Quality, Is.EqualTo(50));
         }
@@ -48,14 +48,11 @@ namespace Given_a_QualityCalculator
         [TestCase("Conjured Mana Cake")]
         public void ThenTheQualityOfAnyProductOtherThanBrie_IsNeverLessThan_0(string itemName)
         {
-            int actualQuality = GetItem(itemName).Quality;
+            int actualQuality = TestResources.GetItem(itemName, _standardItems).Quality;
 
             Assert.That(actualQuality, Is.EqualTo(0));
-        }
-
-        private Item GetItem(string itemName)
-        {
-            return _standardItems.ToList().Find(n => n.Name.Equals(itemName));
-        }
+        }  
     }
+
+
 }
