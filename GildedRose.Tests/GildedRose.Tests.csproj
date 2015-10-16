@@ -45,7 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="GivenProductsHavingReachedTheirSellByDate.cs" />
+    <Compile Include="GildedTestHelper.cs" />
+    <Compile Include="GivenProductsAdheringToStandardAgingQualityRulesAndHavingReachedTheirSellByDate.cs" />
     <Compile Include="Given_a_QualityCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestResources.cs" />
