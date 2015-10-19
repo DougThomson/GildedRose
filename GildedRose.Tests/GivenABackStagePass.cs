@@ -32,7 +32,7 @@ namespace GivenABackStagePass
 
     [TestFixture]
     // ReSharper disable once InconsistentNaming
-    public class WhenThereAreBetween_5_and_0_days_Sellin_left
+    public class WhenThereAreBetween_5_and_1_days_Sellin_left
     {
         [Test]
         [TestCase(5)]
@@ -51,6 +51,22 @@ namespace GivenABackStagePass
             int qualityDifference = updatedQuality - originalQuality;
 
             Assert.That(qualityDifference, Is.EqualTo(3));
+        }
+    }
+
+    [TestFixture]
+    public class WhenThereAre_0_Sellin_days_left
+    {
+        [Test]
+        public void ThenQuality_ShouldBe_0()
+        {
+            IList<Item> items = TestResources.GetBackStagePassesHavingSellinOf(0);
+            QualityCalculator qualityCalculator = new QualityCalculator(items);
+
+            qualityCalculator.UpdateQuality();
+            int actualQuality = GildedTestHelper.GetQuality(items, TestResources.BackstagePassesToATafkal80EtcConcert);
+
+            Assert.That(actualQuality, Is.EqualTo(0));
         }
     }
 }
