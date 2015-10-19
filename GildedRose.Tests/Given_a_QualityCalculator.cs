@@ -27,7 +27,7 @@ namespace Given_a_QualityCalculator
         [Test]
         public void ThenTheQualityOfSulfuras_IsStill_80()
         {
-            var sulfuras = GildedTestHelper.GetItem(TestResources.SulfurasName, _standardItems);
+            var sulfuras = GildedTestHelper.GetItem(GildedRoseResourceStrings.SulfurasName, _standardItems);
             
 
             Assert.That(sulfuras.Quality, Is.EqualTo(80));
@@ -36,7 +36,7 @@ namespace Given_a_QualityCalculator
         [Test]
         public void ThenTheQualityOfBrie_IncreasesToaMaxim_Of50()
         {
-            var brie = GildedTestHelper.GetItem(TestResources.AgedBrieName, _standardItems);
+            var brie = GildedTestHelper.GetItem(GildedRoseResourceStrings.AgedBrieName, _standardItems);
 
             Assert.That(brie.Quality, Is.EqualTo(50));
         }
