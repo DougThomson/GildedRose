@@ -18,15 +18,9 @@ namespace GildedRose.Lib
         {
             for (var i = 0; i < _items.Count; i++)
             {
-                if (_items[i].Name != _agedBrie && _items[i].Name != _backstagePassesToATafkal80EtcConcert)
+                if (IsStandardAgeingRuleHavingQuality(i))
                 {
-                    if (_items[i].Quality > 0)
-                    {
-                        if (_items[i].Name != _sulfurasHandOfRagnaros)
-                        {
-                            _items[i].Quality = _items[i].Quality - 1;
-                        }
-                    }
+                    _items[i].Quality = _items[i].Quality - 1;
                 }
                 else
                 {
@@ -88,6 +82,26 @@ namespace GildedRose.Lib
                     }
                 }
             }
+        }
+
+        private bool IsStandardAgeingRuleHavingQuality(int i)
+        {
+            return IsitemHavingStandardAgeingRules(i) && DoesItemHaveAnyQuality(i) && IsNotASulfurasItem(i);
+        }
+
+        private bool IsNotASulfurasItem(int itemNumber)
+        {
+            return _items[itemNumber].Name != _sulfurasHandOfRagnaros;
+        }
+
+        private bool DoesItemHaveAnyQuality(int itemNumber)
+        {
+            return _items[itemNumber].Quality > 0;
+        }
+
+        private bool IsitemHavingStandardAgeingRules(int itemNumber)
+        {
+            return _items[itemNumber].Name != _agedBrie && _items[itemNumber].Name != _backstagePassesToATafkal80EtcConcert;
         }
     }
 }
