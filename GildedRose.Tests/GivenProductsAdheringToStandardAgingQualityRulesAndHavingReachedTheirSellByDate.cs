@@ -16,13 +16,11 @@ namespace GivenProductsAdheringToStandardAgingQualityRulesAndHavingReachedTheirS
         public void ThenTheQuality_IsReducedBy_2(string itemName)
         {
             IList<Item> standardItems = TestResources.GetStandardItemsHavingSellInOf0();
-            QualityCalculator qualityCalculator = new QualityCalculator(standardItems);
-
-            
+            QualityCalculator qualityCalculator = new QualityCalculator(standardItems);         
             int qualityWhenSellInReached0 = GildedTestHelper.GetQuality(standardItems, itemName);
+
             qualityCalculator.UpdateQuality();
             int newQuality = GildedTestHelper.GetQuality(standardItems, itemName);
-
             int qualityDifference =  qualityWhenSellInReached0 - newQuality;
 
             Assert.That(qualityDifference, Is.EqualTo(2));

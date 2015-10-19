@@ -34,7 +34,7 @@ namespace Given_a_QualityCalculator
         }
 
         [Test]
-        public void ThenTheQuality_OfBrie_Is50()
+        public void ThenTheQualityOfBrie_IncreasesToaMaxim_Of50()
         {
             var brie = GildedTestHelper.GetItem(TestResources.AgedBrieName, _standardItems);
 

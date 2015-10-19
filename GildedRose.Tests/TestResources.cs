@@ -50,5 +50,19 @@ namespace GildedRose.Tests
         internal static string DexterityVestName = "+5 Dexterity Vest";
         internal static string SulfurasName = "Sulfuras, Hand of Ragnaros";
         internal static string AgedBrieName = "Aged Brie";
+
+        public static IList<Item> GetBackStagePassesHavingSellinOf(int initialSellinValue)
+        {
+            return new List<Item>
+            {
+                new Item
+                {
+                    Name = BackstagePassesToATafkal80EtcConcert,
+                    SellIn = initialSellinValue,
+                    Quality = 20
+                },
+                new Item {Name = ConjuredManaCake, SellIn = 0, Quality = 6}
+            };
+        }
     }
 }

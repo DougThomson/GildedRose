@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="GildedTestHelper.cs" />
+    <Compile Include="GivenABackStagePass.cs" />
     <Compile Include="GivenProductsAdheringToStandardAgingQualityRulesAndHavingReachedTheirSellByDate.cs" />
     <Compile Include="Given_a_QualityCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
