@@ -19,20 +19,38 @@ namespace GivenABackStagePass
         public void Then_QualityIncreasesBy2_EachDay(int initialSellinValue)
         {
             IList<Item> items = TestResources.GetBackStagePassesHavingSellinOf(initialSellinValue);
-            int originalQuality = GetQualityOfBackstagePass(items);
+            int originalQuality = GildedTestHelper.GetQualityOfItem(items, TestResources.BackstagePassesToATafkal80EtcConcert);
             QualityCalculator qualityCalculator = new QualityCalculator(items);
 
             qualityCalculator.UpdateQuality();
-            int updatedQuality = GetQualityOfBackstagePass(items);
+            int updatedQuality = GildedTestHelper.GetQualityOfItem(items, TestResources.BackstagePassesToATafkal80EtcConcert);
             int qualityDifference = updatedQuality - originalQuality;
 
             Assert.That(qualityDifference, Is.EqualTo(2));
         }
+    }
 
-        private static int GetQualityOfBackstagePass(IList<Item> items)
+    [TestFixture]
+    // ReSharper disable once InconsistentNaming
+    public class WhenThereAreBetween_5_and_0_days_Sellin_left
+    {
+        [Test]
+        [TestCase(5)]
+        [TestCase(4)]
+        [TestCase(3)]
+        [TestCase(2)]
+        [TestCase(1)]
+        public void Then_QualityIncreasesBy3_EachDay(int initialSellingValue)
         {
-            int originalQuality = GildedTestHelper.GetQuality(items, TestResources.BackstagePassesToATafkal80EtcConcert);
-            return originalQuality;
+            IList<Item> items = TestResources.GetBackStagePassesHavingSellinOf(initialSellingValue);
+            int originalQuality = GildedTestHelper.GetQualityOfItem(items, TestResources.BackstagePassesToATafkal80EtcConcert);
+            QualityCalculator qualityCalculator = new QualityCalculator(items);
+
+            qualityCalculator.UpdateQuality();
+            int updatedQuality = GildedTestHelper.GetQuality(items, TestResources.BackstagePassesToATafkal80EtcConcert);
+            int qualityDifference = updatedQuality - originalQuality;
+
+            Assert.That(qualityDifference, Is.EqualTo(3));
         }
     }
 }

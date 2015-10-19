@@ -15,5 +15,11 @@ namespace GildedRose.Tests
         {
             return itemsList.ToList().Find(n => n.Name.Equals(itemName));
         }
+
+        public static int GetQualityOfItem(IList<Item> items, string itemName)
+        {
+            int originalQuality = GildedTestHelper.GetQuality(items, itemName);
+            return originalQuality;
+        }
     }
 }
