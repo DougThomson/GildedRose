@@ -22,32 +22,23 @@ namespace GildedRose.Lib
                 {
                     DecrementItemQuality(i);
                 }
-                else
-                {
-                    if (IsQualityLessThan50(i))
+//                if(IsNotStandardAgeingRuleHavingQuality(i))
+//                {
+                    //                    if (IsQualityLessThan50(i))
+                    if(IsNotStandardAgeingRuleHavingQuality(i) && IsQualityLessThan50(i))
                     {
                         IncrementItemQuality(i);
 
-                        if (IsBackStagePass(i))
+                        if (IsBackStagePass(i) && IsSellinLessThan11(i) && IsQualityLessThan50(i))
                         {
-                            if (IsSellinLessThan11(i))
+                            IncrementItemQuality(i);
+                            if (IsSellinLessThan6(i) && IsQualityLessThan50(i))
                             {
-                                if (IsQualityLessThan50(i))
-                                {
-                                    IncrementItemQuality(i);
-                                }
-                            }
-
-                            if (IsSellinLessThan6(i))
-                            {
-                                if (IsQualityLessThan50(i))
-                                {
-                                    IncrementItemQuality(i);
-                                }
+                                IncrementItemQuality(i);
                             }
                         }
                     }
-                }
+//                }
 
                 if (IsNotSulfuras(i))
                 {
@@ -56,33 +47,36 @@ namespace GildedRose.Lib
 
                 if (IsSellinNegative(i))
                 {
-                    if (IsNotBrie(i))
+                    if (IsNotBrie(i) && IsNotBackStagePass(i) && HasQuality(i) && IsNotSulfuras(i))
                     {
-                        if (!IsBackStagePass(i))
-                        {
-                            if (HasQuality(i))
-                            {
-                                if (IsNotSulfuras(i))
-                                {
-                                    DecrementItemQuality(i);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            //Backstage pass has gone past its sellby, thus being useless and quality set to zero
-                            SetItemQualityToZero(i);
-                        }
+                        DecrementItemQuality(i);
                     }
-                    else
+                    if (IsBackStagePass(i))
                     {
-                        if (IsQualityLessThan50(i))
-                        {
-                            IncrementItemQuality(i);
-                        }
+                        //Backstage pass has gone past its sellby, thus being useless and quality set to zero
+                        SetItemQualityToZero(i);
+                    }
+                    if (IsBrie(i) && IsQualityLessThan50(i))
+                    {
+                        IncrementItemQuality(i);
                     }
                 }
             }
+        }
+
+        private bool IsNotStandardAgeingRuleHavingQuality(int itemNumber)
+        {
+            return !IsStandardAgeingRuleHavingQuality(itemNumber);
+        }
+
+        private bool IsBrie(int itemNumber)
+        {
+            return !IsNotBrie(itemNumber);
+        }
+
+        private bool IsNotBackStagePass(int i)
+        {
+            return !IsBackStagePass(i);
         }
 
         private int SetItemQualityToZero(int i)
