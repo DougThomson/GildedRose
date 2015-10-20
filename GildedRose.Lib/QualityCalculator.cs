@@ -18,140 +18,137 @@ namespace GildedRose.Lib
         {
             for (var i = 0; i < _items.Count; i++)
             {
-                if (IsStandardAgeingRuleHavingQuality(i))
+                if (IsStandardAgeingRuleHavingQuality(_items[i]))
                 {
-                    DecrementItemQuality(i);
+                    DecrementItemQuality(_items[i]);
                 }
-//                if(IsNotStandardAgeingRuleHavingQuality(i))
-//                {
-                    //                    if (IsQualityLessThan50(i))
-                    if(IsNotStandardAgeingRuleHavingQuality(i) && IsQualityLessThan50(i))
-                    {
-                        IncrementItemQuality(i);
 
-                        if (IsBackStagePass(i) && IsSellinLessThan11(i) && IsQualityLessThan50(i))
+                if (IsNotStandardAgeingRuleHavingQuality(_items[i]) && IsQualityLessThan50(_items[i]))
+                {
+                    IncrementItemQuality(_items[i]);
+
+                    if (IsBackStagePass(_items[i]) && IsSellinLessThan11(_items[i]) && IsQualityLessThan50(_items[i]))
+                    {
+                        IncrementItemQuality(_items[i]);
+                        if (IsSellinLessThan6(_items[i]) && IsQualityLessThan50(_items[i]))
                         {
-                            IncrementItemQuality(i);
-                            if (IsSellinLessThan6(i) && IsQualityLessThan50(i))
-                            {
-                                IncrementItemQuality(i);
-                            }
+                            IncrementItemQuality(_items[i]);
                         }
                     }
-//                }
-
-                if (IsNotSulfuras(i))
-                {
-                    DecrementSelIn(i);
                 }
 
-                if (IsSellinNegative(i))
+                if (IsNotSulfuras(_items[i]))
                 {
-                    if (IsNotBrie(i) && IsNotBackStagePass(i) && HasQuality(i) && IsNotSulfuras(i))
-                    {
-                        DecrementItemQuality(i);
-                    }
-                    if (IsBackStagePass(i))
-                    {
-                        //Backstage pass has gone past its sellby, thus being useless and quality set to zero
-                        SetItemQualityToZero(i);
-                    }
-                    if (IsBrie(i) && IsQualityLessThan50(i))
-                    {
-                        IncrementItemQuality(i);
-                    }
+                    DecrementSelIn(_items[i]);
+                }
+
+                if (!IsSellinNegative(_items[i]))
+                    continue;
+
+                if (IsNotBrie(_items[i]) && IsNotBackStagePass(_items[i]) && HasQuality(_items[i]) && IsNotSulfuras(_items[i]))
+                {
+                    DecrementItemQuality(_items[i]);
+                }
+                if (IsBackStagePass(_items[i]))
+                {
+                    //Backstage pass has gone past its sellby, thus being useless and quality set to zero
+                    SetItemQualityToZero(_items[i]);
+                }
+                if (IsBrie(_items[i]) && IsQualityLessThan50(_items[i]))
+                {
+                    IncrementItemQuality(_items[i]);
                 }
             }
         }
 
-        private bool IsNotStandardAgeingRuleHavingQuality(int itemNumber)
+        private bool IsNotStandardAgeingRuleHavingQuality(Item item)
         {
-            return !IsStandardAgeingRuleHavingQuality(itemNumber);
+            return !IsStandardAgeingRuleHavingQuality(item);
         }
 
-        private bool IsBrie(int itemNumber)
+        private bool IsBrie(Item item)
         {
-            return !IsNotBrie(itemNumber);
+            return !IsNotBrie(item);
         }
 
-        private bool IsNotBackStagePass(int i)
+        private bool IsNotBackStagePass(Item item)
         {
-            return !IsBackStagePass(i);
+            return !IsBackStagePass(item);
         }
 
-        private int SetItemQualityToZero(int i)
+        private void SetItemQualityToZero(Item item)
         {
-            return _items[i].Quality = _items[i].Quality - _items[i].Quality;
+            item.Quality = item.Quality - item.Quality;
         }
 
-        private bool HasQuality(int itemNumber)
+        private bool HasQuality(Item item)
         {
-            return _items[itemNumber].Quality > 0;
+            return item.Quality > 0;
         }
 
-        private bool IsNotBrie(int itemNumber)
+        private bool IsNotBrie(Item item)
         {
-            return _items[itemNumber].Name != _agedBrie;
+            return item.Name != _agedBrie;
         }
 
-        private bool IsSellinNegative(int itemNumber)
+        private bool IsSellinNegative(Item item)
         {
-            return _items[itemNumber].SellIn < 0;
+            return item.SellIn < 0;
         }
 
-        private int DecrementSelIn(int itemNumber)
+        private void DecrementSelIn(Item item)
         {
-            return _items[itemNumber].SellIn = _items[itemNumber].SellIn - 1;
+            item.SellIn = item.SellIn - 1;
         }
 
-        private bool IsSellinLessThan6(int itemNumber)
+        private bool IsSellinLessThan6(Item item)
         {
-            return _items[itemNumber].SellIn < 6;
+            return item.SellIn < 6;
         }
 
-        private bool IsSellinLessThan11(int itemNumber)
+        private bool IsSellinLessThan11(Item item)
         {
-            return _items[itemNumber].SellIn < 11;
+            return item.SellIn < 11;
         }
 
-        private bool IsBackStagePass(int itemNumber)
+        private bool IsBackStagePass(Item item)
         {
-            return _items[itemNumber].Name == _backstagePassesToATafkal80EtcConcert;
+            return item.Name == _backstagePassesToATafkal80EtcConcert;
         }
 
-        private int DecrementItemQuality(int itemNumber)
+        private void DecrementItemQuality(Item item)
         {
-            return _items[itemNumber].Quality = _items[itemNumber].Quality - 1;
+            item.Quality = item.Quality - 1;
         }
 
-        private int IncrementItemQuality(int i)
+        private void IncrementItemQuality(Item item)
         {
-            return _items[i].Quality = _items[i].Quality + 1;
+            item.Quality = item.Quality + 1;
         }
 
-        private bool IsQualityLessThan50(int itemNumber)
+        private bool IsQualityLessThan50(Item item)
         {
-            return _items[itemNumber].Quality < 50;
+            return item.Quality < 50;
         }
 
-        private bool IsStandardAgeingRuleHavingQuality(int i)
+        private bool IsStandardAgeingRuleHavingQuality(Item item)
         {
-            return IsitemHavingStandardAgeingRules(i) && DoesItemHaveAnyQuality(i) && IsNotSulfuras(i);
+            return IsitemHavingStandardAgeingRules(item) && DoesItemHaveAnyQuality(item) && IsNotSulfuras(item);
         }
 
-        private bool IsNotSulfuras(int itemNumber)
+        private bool IsNotSulfuras(Item item)
         {
-            return _items[itemNumber].Name != _sulfurasHandOfRagnaros;
+            return item.Name != _sulfurasHandOfRagnaros;
         }
 
-        private bool DoesItemHaveAnyQuality(int itemNumber)
+        private bool DoesItemHaveAnyQuality(Item item)
         {
-            return _items[itemNumber].Quality > 0;
+            return item.Quality > 0;
         }
 
-        private bool IsitemHavingStandardAgeingRules(int itemNumber)
+        private bool IsitemHavingStandardAgeingRules(Item item)
         {
-            return _items[itemNumber].Name != _agedBrie && _items[itemNumber].Name != _backstagePassesToATafkal80EtcConcert;
+            return item.Name != _agedBrie && item.Name != _backstagePassesToATafkal80EtcConcert;
         }
     }
 }
