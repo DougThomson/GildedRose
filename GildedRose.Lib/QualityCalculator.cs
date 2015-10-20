@@ -20,76 +20,132 @@ namespace GildedRose.Lib
             {
                 if (IsStandardAgeingRuleHavingQuality(i))
                 {
-                    _items[i].Quality = _items[i].Quality - 1;
+                    DecrementItemQuality(i);
                 }
                 else
                 {
-                    if (_items[i].Quality < 50)
+                    if (IsQualityLessThan50(i))
                     {
-                        _items[i].Quality = _items[i].Quality + 1;
+                        IncrementItemQuality(i);
 
-                        if (_items[i].Name == _backstagePassesToATafkal80EtcConcert)
+                        if (IsBackStagePass(i))
                         {
-                            if (_items[i].SellIn < 11)
+                            if (IsSellinLessThan11(i))
                             {
-                                if (_items[i].Quality < 50)
+                                if (IsQualityLessThan50(i))
                                 {
-                                    _items[i].Quality = _items[i].Quality + 1;
+                                    IncrementItemQuality(i);
                                 }
                             }
 
-                            if (_items[i].SellIn < 6)
+                            if (IsSellinLessThan6(i))
                             {
-                                if (_items[i].Quality < 50)
+                                if (IsQualityLessThan50(i))
                                 {
-                                    _items[i].Quality = _items[i].Quality + 1;
+                                    IncrementItemQuality(i);
                                 }
                             }
                         }
                     }
                 }
 
-                if (_items[i].Name != _sulfurasHandOfRagnaros)
+                if (IsNotSulfuras(i))
                 {
-                    _items[i].SellIn = _items[i].SellIn - 1;
+                    DecrementSelIn(i);
                 }
 
-                if (_items[i].SellIn < 0)
+                if (IsSellinNegative(i))
                 {
-                    if (_items[i].Name != _agedBrie)
+                    if (IsNotBrie(i))
                     {
-                        if (_items[i].Name != _backstagePassesToATafkal80EtcConcert)
+                        if (!IsBackStagePass(i))
                         {
-                            if (_items[i].Quality > 0)
+                            if (HasQuality(i))
                             {
-                                if (_items[i].Name != _sulfurasHandOfRagnaros)
+                                if (IsNotSulfuras(i))
                                 {
-                                    _items[i].Quality = _items[i].Quality - 1;
+                                    DecrementItemQuality(i);
                                 }
                             }
                         }
                         else
                         {
-                            _items[i].Quality = _items[i].Quality - _items[i].Quality;
+                            //Backstage pass has gone past its sellby, thus being useless and quality set to zero
+                            SetItemQualityToZero(i);
                         }
                     }
                     else
                     {
-                        if (_items[i].Quality < 50)
+                        if (IsQualityLessThan50(i))
                         {
-                            _items[i].Quality = _items[i].Quality + 1;
+                            IncrementItemQuality(i);
                         }
                     }
                 }
             }
         }
 
-        private bool IsStandardAgeingRuleHavingQuality(int i)
+        private int SetItemQualityToZero(int i)
         {
-            return IsitemHavingStandardAgeingRules(i) && DoesItemHaveAnyQuality(i) && IsNotASulfurasItem(i);
+            return _items[i].Quality = _items[i].Quality - _items[i].Quality;
         }
 
-        private bool IsNotASulfurasItem(int itemNumber)
+        private bool HasQuality(int itemNumber)
+        {
+            return _items[itemNumber].Quality > 0;
+        }
+
+        private bool IsNotBrie(int itemNumber)
+        {
+            return _items[itemNumber].Name != _agedBrie;
+        }
+
+        private bool IsSellinNegative(int itemNumber)
+        {
+            return _items[itemNumber].SellIn < 0;
+        }
+
+        private int DecrementSelIn(int itemNumber)
+        {
+            return _items[itemNumber].SellIn = _items[itemNumber].SellIn - 1;
+        }
+
+        private bool IsSellinLessThan6(int itemNumber)
+        {
+            return _items[itemNumber].SellIn < 6;
+        }
+
+        private bool IsSellinLessThan11(int itemNumber)
+        {
+            return _items[itemNumber].SellIn < 11;
+        }
+
+        private bool IsBackStagePass(int itemNumber)
+        {
+            return _items[itemNumber].Name == _backstagePassesToATafkal80EtcConcert;
+        }
+
+        private int DecrementItemQuality(int itemNumber)
+        {
+            return _items[itemNumber].Quality = _items[itemNumber].Quality - 1;
+        }
+
+        private int IncrementItemQuality(int i)
+        {
+            return _items[i].Quality = _items[i].Quality + 1;
+        }
+
+        private bool IsQualityLessThan50(int itemNumber)
+        {
+            return _items[itemNumber].Quality < 50;
+        }
+
+        private bool IsStandardAgeingRuleHavingQuality(int i)
+        {
+            return IsitemHavingStandardAgeingRules(i) && DoesItemHaveAnyQuality(i) && IsNotSulfuras(i);
+        }
+
+        private bool IsNotSulfuras(int itemNumber)
         {
             return _items[itemNumber].Name != _sulfurasHandOfRagnaros;
         }
