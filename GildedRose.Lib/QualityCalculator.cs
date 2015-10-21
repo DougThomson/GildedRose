@@ -8,6 +8,7 @@ namespace GildedRose.Lib
         private readonly string _agedBrie = GildedRoseResourceStrings.AgedBrieName;
         private readonly string _backstagePassesToATafkal80EtcConcert = GildedRoseResourceStrings.BackstagePassesToATafkal80EtcConcert;
         private readonly string _sulfurasHandOfRagnaros = GildedRoseResourceStrings.SulfurasName;
+        private string _conjuredItemName = GildedRoseResourceStrings.ConjuredItemName;
 
         public QualityCalculator(IList<Item> items)
         {
@@ -16,49 +17,69 @@ namespace GildedRose.Lib
 
         public void UpdateQuality()
         {
-            for (var i = 0; i < _items.Count; i++)
+            foreach (Item item in _items)
             {
-                if (IsStandardAgeingRuleHavingQuality(_items[i]))
+                if (IsStandardAgeingRuleHavingQuality(item))
                 {
-                    DecrementItemQuality(_items[i]);
+                    DecrementItemQuality(item);
                 }
 
-                if (IsNotStandardAgeingRuleHavingQuality(_items[i]) && IsQualityLessThan50(_items[i]))
+                if (IsConjuredItem(item))
                 {
-                    IncrementItemQuality(_items[i]);
+                    DecrementItemQualityBy2(item);
+                }
 
-                    if (IsBackStagePass(_items[i]) && IsSellinLessThan11(_items[i]) && IsQualityLessThan50(_items[i]))
+                if (IsNotStandardAgeingRuleHavingQuality(item) && IsQualityLessThan50(item) && IsNotConjuredItem(item))
+                {
+                    IncrementItemQuality(item);
+
+                    if (IsBackStagePass(item) && IsSellinLessThan11(item) && IsQualityLessThan50(item))
                     {
-                        IncrementItemQuality(_items[i]);
-                        if (IsSellinLessThan6(_items[i]) && IsQualityLessThan50(_items[i]))
+                        IncrementItemQuality(item);
+                        if (IsSellinLessThan6(item) && IsQualityLessThan50(item))
                         {
-                            IncrementItemQuality(_items[i]);
+                            IncrementItemQuality(item);
                         }
                     }
                 }
 
-                if (IsNotSulfuras(_items[i]))
+                if (IsNotSulfuras(item))
                 {
-                    DecrementSelIn(_items[i]);
+                    DecrementSelIn(item);
                 }
 
-                if (!IsSellinNegative(_items[i]))
+                if (!IsSellinNegative(item))
                     continue;
 
-                if (IsNotBrie(_items[i]) && IsNotBackStagePass(_items[i]) && HasQuality(_items[i]) && IsNotSulfuras(_items[i]))
+                if (IsNotBrie(item) && IsNotBackStagePass(item) && HasQuality(item) && IsNotSulfuras(item))
                 {
-                    DecrementItemQuality(_items[i]);
+                    DecrementItemQuality(item);
                 }
-                if (IsBackStagePass(_items[i]))
+                if (IsBackStagePass(item))
                 {
                     //Backstage pass has gone past its sellby, thus being useless and quality set to zero
-                    SetItemQualityToZero(_items[i]);
+                    SetItemQualityToZero(item);
                 }
-                if (IsBrie(_items[i]) && IsQualityLessThan50(_items[i]))
+                if (IsBrie(item) && IsQualityLessThan50(item))
                 {
-                    IncrementItemQuality(_items[i]);
+                    IncrementItemQuality(item);
                 }
             }
+        }
+
+        private bool IsNotConjuredItem(Item item)
+        {
+            return !IsConjuredItem(item);
+        }
+
+        private bool IsConjuredItem(Item item)
+        {
+            return item.Name.Equals(_conjuredItemName);
+        }
+
+        private void DecrementItemQualityBy2(Item item)
+        {
+            item.Quality = item.Quality - 2;
         }
 
         private bool IsNotStandardAgeingRuleHavingQuality(Item item)
@@ -148,7 +169,7 @@ namespace GildedRose.Lib
 
         private bool IsitemHavingStandardAgeingRules(Item item)
         {
-            return item.Name != _agedBrie && item.Name != _backstagePassesToATafkal80EtcConcert;
+            return item.Name != _agedBrie && item.Name != _backstagePassesToATafkal80EtcConcert && item.Name != _conjuredItemName;
         }
     }
 }

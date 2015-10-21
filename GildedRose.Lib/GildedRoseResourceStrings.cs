@@ -8,5 +8,6 @@ namespace GildedRose.Lib
         public static string DexterityVestName = "+5 Dexterity Vest";
         public static string SulfurasName = "Sulfuras, Hand of Ragnaros";
         public static string AgedBrieName = "Aged Brie";
+        public static string ConjuredItemName = "Conjured Item";
     }
 }

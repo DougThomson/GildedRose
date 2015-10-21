@@ -17,10 +17,10 @@ namespace GivenProductsAdheringToStandardAgingQualityRulesAndHavingReachedTheirS
         {
             IList<Item> standardItems = TestResources.GetStandardItemsHavingSellInOf0();
             QualityCalculator qualityCalculator = new QualityCalculator(standardItems);         
-            int qualityWhenSellInReached0 = GildedTestHelper.GetQuality(standardItems, itemName);
+            int qualityWhenSellInReached0 = GildedTestHelper.GetQualityOfItem(standardItems, itemName);
 
             qualityCalculator.UpdateQuality();
-            int newQuality = GildedTestHelper.GetQuality(standardItems, itemName);
+            int newQuality = GildedTestHelper.GetQualityOfItem(standardItems, itemName);
             int qualityDifference =  qualityWhenSellInReached0 - newQuality;
 
             Assert.That(qualityDifference, Is.EqualTo(2));

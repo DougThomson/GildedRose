@@ -47,7 +47,7 @@ namespace GivenABackStagePass
             QualityCalculator qualityCalculator = new QualityCalculator(items);
 
             qualityCalculator.UpdateQuality();
-            int updatedQuality = GildedTestHelper.GetQuality(items, GildedRoseResourceStrings.BackstagePassesToATafkal80EtcConcert);
+            int updatedQuality = GildedTestHelper.GetQualityOfItem(items, GildedRoseResourceStrings.BackstagePassesToATafkal80EtcConcert);
             int qualityDifference = updatedQuality - originalQuality;
 
             Assert.That(qualityDifference, Is.EqualTo(3));
@@ -64,7 +64,7 @@ namespace GivenABackStagePass
             QualityCalculator qualityCalculator = new QualityCalculator(items);
 
             qualityCalculator.UpdateQuality();
-            int actualQuality = GildedTestHelper.GetQuality(items, GildedRoseResourceStrings.BackstagePassesToATafkal80EtcConcert);
+            int actualQuality = GildedTestHelper.GetQualityOfItem(items, GildedRoseResourceStrings.BackstagePassesToATafkal80EtcConcert);
 
             Assert.That(actualQuality, Is.EqualTo(0));
         }

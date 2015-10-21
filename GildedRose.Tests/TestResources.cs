@@ -57,5 +57,18 @@ namespace GildedRose.Tests
                 new Item {Name = GildedRoseResourceStrings.ConjuredManaCake, SellIn = 0, Quality = 6}
             };
         }
+
+        public static IList<Item> GetConjuredItems()
+        {
+            return new List<Item>
+            {
+                new Item
+                {
+                    Name = GildedRoseResourceStrings.ConjuredItemName,
+                    SellIn = 10,
+                    Quality = 20
+                }
+            };
+        }
     }
 }
